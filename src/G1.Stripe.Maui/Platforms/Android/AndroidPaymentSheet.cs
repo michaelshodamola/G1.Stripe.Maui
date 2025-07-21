@@ -33,6 +33,16 @@ public class AndroidPaymentSheet : IPaymentSheet
         var configurationBuilder = new PaymentSheet.Configuration.Builder(options.MerchantDisplayName)
             .AllowsDelayedPaymentMethods(true); // Optional
 
+        if (options.GooglePay is { } googlePay) 
+        {
+            var environment = googlePay.IsTestEnvironment 
+                ? PaymentSheet.GooglePayConfiguration.Environment.Test! 
+                : PaymentSheet.GooglePayConfiguration.Environment.Production!;
+
+            configurationBuilder = configurationBuilder
+                .GooglePay(new PaymentSheet.GooglePayConfiguration(environment, googlePay.CountryCode));
+        }
+
         if (options.Customer is { } customer)
         {
             var customerConfig = new PaymentSheet.CustomerConfiguration(customer.CustomerId, customer.EphemeralKey);
