@@ -1,10 +1,11 @@
 ﻿using AndroidX.Activity;
 using Com.Stripe.Android;
 using Com.Stripe.Android.Paymentsheet;
+using G1.Stripe.Maui.Options;
 using AndroidPaymentSheetResult = Com.Stripe.Android.Paymentsheet.PaymentSheetResult;
 using SharedPSResult = G1.Stripe.Maui.PaymentSheetResult;
 
-namespace G1.Stripe.Maui.Platforms.Android;
+namespace G1.Stripe.Maui;
 
 public class AndroidPaymentSheet : IPaymentSheet
 {
@@ -30,26 +31,8 @@ public class AndroidPaymentSheet : IPaymentSheet
     {
         ArgumentNullException.ThrowIfNull(_sheet);
 
-        var configurationBuilder = new PaymentSheet.Configuration.Builder(options.MerchantDisplayName)
-            .AllowsDelayedPaymentMethods(true); // Optional
+        var configuration = options.BuildPlatform();
 
-        if (options.GooglePay is { } googlePay) 
-        {
-            var environment = googlePay.IsTestEnvironment 
-                ? PaymentSheet.GooglePayConfiguration.Environment.Test! 
-                : PaymentSheet.GooglePayConfiguration.Environment.Production!;
-
-            configurationBuilder = configurationBuilder
-                .GooglePay(new PaymentSheet.GooglePayConfiguration(environment, googlePay.CountryCode));
-        }
-
-        if (options.Customer is { } customer)
-        {
-            var customerConfig = new PaymentSheet.CustomerConfiguration(customer.CustomerId, customer.EphemeralKey);
-            configurationBuilder = configurationBuilder.Customer(customerConfig);
-        }
-
-        var configuration = configurationBuilder.Build();
         _tcs = new TaskCompletionSource<SharedPSResult>();
         using (ct.Register(() => _tcs.TrySetCanceled(ct)))
         {
@@ -65,15 +48,15 @@ public class AndroidPaymentSheet : IPaymentSheet
             switch (paymentSheetResult)
             {
                 case AndroidPaymentSheetResult.Canceled c:
-                    sheet._tcs?.SetResult(new PaymentSheetResult.Canceled());
+                    sheet._tcs?.SetResult(new SharedPSResult.Canceled());
                     break;
 
                 case AndroidPaymentSheetResult.Failed f:
-                    sheet._tcs?.SetResult(new PaymentSheetResult.Failed(f.Error));
+                    sheet._tcs?.SetResult(new SharedPSResult.Failed(f.Error));
                     break;
 
                 case AndroidPaymentSheetResult.Completed completed:
-                    sheet._tcs?.SetResult(new PaymentSheetResult.Completed());
+                    sheet._tcs?.SetResult(new SharedPSResult.Completed());
                     break;
                 default:
                     sheet._tcs?.SetException(new ImpossiblePaymentSheetException("Result didnt match one of excpected cases"));

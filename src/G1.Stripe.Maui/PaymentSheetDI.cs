@@ -1,12 +1,7 @@
 ﻿#if ANDROID
 using AndroidX.Activity;
-using G1.Stripe.Maui.Platforms.Android;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.LifecycleEvents;
-#endif
-
-#if IOS
-using G1.Stripe.Maui.Platforms.iOS;
 #endif
 
 namespace G1.Stripe.Maui;

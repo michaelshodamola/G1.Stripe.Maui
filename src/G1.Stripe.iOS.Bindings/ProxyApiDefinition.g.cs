@@ -280,7 +280,7 @@ namespace Stripe
 
 		// @property (nonatomic) int allowsDelayedPaymentMethods;
 		[Export ("allowsDelayedPaymentMethods")]
-		int AllowsDelayedPaymentMethods { get; set; }
+		bool AllowsDelayedPaymentMethods { get; set; }
 
 		// @property (nonatomic) enum TSPSUserInterfaceStyle userInterfaceStyle;
 		[Export ("userInterfaceStyle", ArgumentSemantic.Assign)]

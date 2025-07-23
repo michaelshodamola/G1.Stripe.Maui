@@ -1,4 +1,6 @@
-﻿namespace G1.Stripe.Maui;
+﻿using G1.Stripe.Maui.Options;
+
+namespace G1.Stripe.Maui;
 
 public interface IPaymentSheet
 {

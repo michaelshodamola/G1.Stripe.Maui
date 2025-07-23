@@ -1,7 +1,8 @@
 ﻿using Foundation;
+using G1.Stripe.Maui.Options;
 using Stripe;
 
-namespace G1.Stripe.Maui.Platforms.iOS;
+namespace G1.Stripe.Maui;
 
 public class iOSPaymentSheet : IPaymentSheet
 {
@@ -12,15 +13,7 @@ public class iOSPaymentSheet : IPaymentSheet
 
     public async Task<PaymentSheetResult> Open(PaymentSheetOptions options, CancellationToken ct = default)
     {
-        var configuration = new TSPSConfiguration()
-        {
-            MerchantDisplayName = options.MerchantDisplayName,
-        };
-
-        if(options.Customer is { } customer)
-        {
-            configuration.Customer = new TSPSCustomerConfiguration(customer.CustomerId, customer.EphemeralKey);
-        }
+        var configuration = options.BuildPlatform();
 
         var ps = new TSPSPaymentSheet(options.ClientSecret, configuration);
 
