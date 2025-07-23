@@ -1,15 +1,21 @@
 using System;
 using Foundation;
 using ObjCRuntime;
-using Stripe;
-using StripeCore;
+using Stripe_Swift_Proxy;
 using UIKit;
 
-namespace Stripe
+namespace StripeSwiftProxy
 {
-    // @interface TSPAddressDetails
-    [BaseType(typeof(NSObject))]
-    interface TSPAddressDetails
+	// @interface Stripe_Swift_Proxy_Swift_312
+	interface Stripe_Swift_Proxy_Swift_312
+	{
+		// @property (readonly, nonatomic) enum STPCardBrand cardBrand;
+		[Export ("cardBrand")]
+		STPCardBrand CardBrand { }
+	}
+
+	// @interface TSPAddressDetails
+	interface TSPAddressDetails
 	{
 		// @property (copy, nonatomic) NSString * _Nullable line1;
 		[NullAllowed, Export ("line1")]
@@ -41,9 +47,8 @@ namespace Stripe
 		NativeHandle Constructor ([NullAllowed] string line1, [NullAllowed] string line2, [NullAllowed] string city, [NullAllowed] string state, [NullAllowed] string postalCode, [NullAllowed] string country);
 	}
 
-    // @interface TSPBillingDetails
-    [BaseType(typeof(NSObject))]
-    interface TSPBillingDetails
+	// @interface TSPBillingDetails
+	interface TSPBillingDetails
 	{
 		// @property (nonatomic, strong) TSPAddressDetails * _Nullable address;
 		[NullAllowed, Export ("address", ArgumentSemantic.Strong)]
@@ -67,9 +72,8 @@ namespace Stripe
 		NativeHandle Constructor ([NullAllowed] TSPAddressDetails address, [NullAllowed] string email, [NullAllowed] string name, [NullAllowed] string phone);
 	}
 
-    // @interface TSPSAppearance
-    [BaseType(typeof(NSObject))]
-    interface TSPSAppearance
+	// @interface TSPSAppearance
+	interface TSPSAppearance
 	{
 		// @property (readonly, getter = default, nonatomic, strong, class) TSPSAppearance * _Nonnull default_;
 		[Static]
@@ -101,9 +105,8 @@ namespace Stripe
 		TSPSAppearanceShadow Shadow { get; }
 	}
 
-    // @interface TSPSAppearanceColors
-    [BaseType(typeof(NSObject))]
-    interface TSPSAppearanceColors
+	// @interface TSPSAppearanceColors
+	interface TSPSAppearanceColors
 	{
 		// @property (nonatomic, strong) UIColor * _Nullable primary;
 		[NullAllowed, Export ("primary", ArgumentSemantic.Strong)]
@@ -154,9 +157,8 @@ namespace Stripe
 		UIColor Warning { get; set; }
 	}
 
-    // @interface TSPSAppearanceFont
-    [BaseType(typeof(NSObject))]
-    interface TSPSAppearanceFont
+	// @interface TSPSAppearanceFont
+	interface TSPSAppearanceFont
 	{
 		// @property (nonatomic, strong) UIFont * _Nullable base;
 		[NullAllowed, Export ("base", ArgumentSemantic.Strong)]
@@ -167,9 +169,8 @@ namespace Stripe
 		int SizeScaleFactor { get; set; }
 	}
 
-    // @interface TSPSAppearancePrimaryButton
-    [BaseType(typeof(NSObject))]
-    interface TSPSAppearancePrimaryButton
+	// @interface TSPSAppearancePrimaryButton
+	interface TSPSAppearancePrimaryButton
 	{
 		// @property (nonatomic, strong) UIColor * _Nullable backgroundColor;
 		[NullAllowed, Export ("backgroundColor", ArgumentSemantic.Strong)]
@@ -200,9 +201,8 @@ namespace Stripe
 		TSPSAppearanceShadow Shadow { get; }
 	}
 
-    // @interface TSPSAppearanceShadow
-    [BaseType(typeof(NSObject))]
-    interface TSPSAppearanceShadow
+	// @interface TSPSAppearanceShadow
+	interface TSPSAppearanceShadow
 	{
 		// @property (nonatomic, strong) UIColor * _Nullable color;
 		[NullAllowed, Export ("color", ArgumentSemantic.Strong)]
@@ -223,8 +223,7 @@ namespace Stripe
 
 	// @interface TSPSApplePayConfiguration
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSApplePayConfiguration
+	interface TSPSApplePayConfiguration
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull merchantId;
 		[Export ("merchantId")]
@@ -236,7 +235,7 @@ namespace Stripe
 
 		// @property (readonly, nonatomic) int buttonType;
 		[Export ("buttonType")]
-		PKPaymentButtonType ButtonType { get; }
+		int ButtonType { get; }
 
 		// @property (readonly, nonatomic, strong) TSPSApplePayConfigurationHandlers * _Nullable customHandlers;
 		[NullAllowed, Export ("customHandlers", ArgumentSemantic.Strong)]
@@ -248,15 +247,43 @@ namespace Stripe
 		NativeHandle Constructor (string merchantId, string merchantCountryCode, NSObject buttonType, NSObject paymentSummaryItems, [NullAllowed] TSPSApplePayConfigurationHandlers customHandlers);
 	}
 
-    // @interface TSPSApplePayConfigurationHandlers
-    [BaseType(typeof(NSObject))]
-    interface TSPSApplePayConfigurationHandlers
+	// @interface TSPSApplePayConfigurationHandlers
+	interface TSPSApplePayConfigurationHandlers
 	{
 	}
 
-    // @interface TSPSConfiguration
-    [BaseType(typeof(NSObject))]
-    interface TSPSConfiguration
+	// @interface TSPSBillingDetailsCollectionConfiguration
+	[DisableDefaultCtor]
+	interface TSPSBillingDetailsCollectionConfiguration
+	{
+		// @property (nonatomic) int attachDefaultsToPaymentMethod;
+		[Export ("attachDefaultsToPaymentMethod")]
+		int AttachDefaultsToPaymentMethod { get; set; }
+
+		// @property (nonatomic) enum TSPSAddressCollectionMode address;
+		[Export ("address", ArgumentSemantic.Assign)]
+		TSPSAddressCollectionMode Address { get; set; }
+
+		// @property (nonatomic) enum TSPSCollectionMode email;
+		[Export ("email", ArgumentSemantic.Assign)]
+		TSPSCollectionMode Email { get; set; }
+
+		// @property (nonatomic) enum TSPSCollectionMode name;
+		[Export ("name", ArgumentSemantic.Assign)]
+		TSPSCollectionMode Name { get; set; }
+
+		// @property (nonatomic) enum TSPSCollectionMode phone;
+		[Export ("phone", ArgumentSemantic.Assign)]
+		TSPSCollectionMode Phone { get; set; }
+
+		// -(instancetype _Nonnull)initWithName:(enum TSPSCollectionMode)name email:(enum TSPSCollectionMode)email phone:(enum TSPSCollectionMode)phone address:(enum TSPSAddressCollectionMode)address attachDefaultsToPaymentMethod:(id)attachDefaultsToPaymentMethod __attribute__((objc_designated_initializer));
+		[Export ("initWithName:email:phone:address:attachDefaultsToPaymentMethod:")]
+		[DesignatedInitializer]
+		NativeHandle Constructor (TSPSCollectionMode name, TSPSCollectionMode email, TSPSCollectionMode phone, TSPSAddressCollectionMode address, NSObject attachDefaultsToPaymentMethod);
+	}
+
+	// @interface TSPSConfiguration
+	interface TSPSConfiguration
 	{
 		// @property (copy, nonatomic) NSString * _Nullable merchantDisplayName;
 		[NullAllowed, Export ("merchantDisplayName")]
@@ -265,6 +292,10 @@ namespace Stripe
 		// @property (nonatomic, strong) TSPSCustomerConfiguration * _Nullable customer;
 		[NullAllowed, Export ("customer", ArgumentSemantic.Strong)]
 		TSPSCustomerConfiguration Customer { get; set; }
+
+		// @property (nonatomic, strong) TSPSApplePayConfiguration * _Nullable applePay;
+		[NullAllowed, Export ("applePay", ArgumentSemantic.Strong)]
+		TSPSApplePayConfiguration ApplePay { get; set; }
 
 		// @property (nonatomic, strong) UIColor * _Nullable primaryButtonColor;
 		[NullAllowed, Export ("primaryButtonColor", ArgumentSemantic.Strong)]
@@ -278,9 +309,13 @@ namespace Stripe
 		[NullAllowed, Export ("returnURL")]
 		string ReturnURL { get; set; }
 
+		// @property (nonatomic, strong) TSPSBillingDetailsCollectionConfiguration * _Nullable billingDetailsCollectionConfiguration;
+		[NullAllowed, Export ("billingDetailsCollectionConfiguration", ArgumentSemantic.Strong)]
+		TSPSBillingDetailsCollectionConfiguration BillingDetailsCollectionConfiguration { get; set; }
+
 		// @property (nonatomic) int allowsDelayedPaymentMethods;
 		[Export ("allowsDelayedPaymentMethods")]
-		bool AllowsDelayedPaymentMethods { get; set; }
+		int AllowsDelayedPaymentMethods { get; set; }
 
 		// @property (nonatomic) enum TSPSUserInterfaceStyle userInterfaceStyle;
 		[Export ("userInterfaceStyle", ArgumentSemantic.Assign)]
@@ -289,8 +324,7 @@ namespace Stripe
 
 	// @interface TSPSCustomerConfiguration
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSCustomerConfiguration
+	interface TSPSCustomerConfiguration
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull id;
 		[Export ("id")]
@@ -306,9 +340,8 @@ namespace Stripe
 		NativeHandle Constructor (string id, string ephemeralKeySecret);
 	}
 
-    // @interface TSPSPaymentButton
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentButton
+	// @interface TSPSPaymentButton
+	interface TSPSPaymentButton
 	{
 		// @property (copy, nonatomic) void (^ _Nullable)(TSPSPaymentOption * _Nullable) onPaymentOptionChanged;
 		[NullAllowed, Export ("onPaymentOptionChanged", ArgumentSemantic.Copy)]
@@ -316,7 +349,7 @@ namespace Stripe
 
 		// @property (copy, nonatomic) void (^ _Nullable)(enum TSPSPaymentSheetResult, int * _Nullable) onPaymentCompletion;
 		[NullAllowed, Export ("onPaymentCompletion", ArgumentSemantic.Copy)]
-		unsafe Action<TSPSPaymentSheetResult, IntPtr> OnPaymentCompletion { get; set; }
+		unsafe Action<TSPSPaymentSheetResult, int*> OnPaymentCompletion { get; set; }
 
 		// -(instancetype _Nonnull)initWithFrame:(id)frame __attribute__((objc_designated_initializer));
 		[Export ("initWithFrame:")]
@@ -335,8 +368,7 @@ namespace Stripe
 
 	// @interface TSPSPaymentIntent
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentIntent
+	interface TSPSPaymentIntent
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull stripeId;
 		[Export ("stripeId")]
@@ -348,7 +380,7 @@ namespace Stripe
 
 		// @property (readonly, nonatomic, strong) int * _Nonnull amount;
 		[Export ("amount", ArgumentSemantic.Strong)]
-		unsafe IntPtr Amount { get; }
+		unsafe int* Amount { get; }
 
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull currency;
 		[Export ("currency")]
@@ -373,8 +405,7 @@ namespace Stripe
 
 	// @interface TSPSPaymentMethod
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentMethod
+	interface TSPSPaymentMethod
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull stripeId;
 		[Export ("stripeId")]
@@ -407,8 +438,7 @@ namespace Stripe
 
 	// @interface TSPSPaymentMethodCard
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentMethodCard
+	interface TSPSPaymentMethodCard
 	{
 		// @property (readonly, nonatomic) enum TSPSCardBrand brand;
 		[Export ("brand")]
@@ -420,11 +450,11 @@ namespace Stripe
 
 		// @property (readonly, nonatomic, strong) int * _Nullable expiryMonth;
 		[NullAllowed, Export ("expiryMonth", ArgumentSemantic.Strong)]
-		unsafe IntPtr ExpiryMonth { get; }
+		unsafe int* ExpiryMonth { get; }
 
 		// @property (readonly, nonatomic, strong) int * _Nullable expiryYear;
 		[NullAllowed, Export ("expiryYear", ArgumentSemantic.Strong)]
-		unsafe IntPtr ExpiryYear { get; }
+		unsafe int* ExpiryYear { get; }
 
 		// @property (readonly, copy, nonatomic) NSString * _Nullable funding;
 		[NullAllowed, Export ("funding")]
@@ -437,8 +467,7 @@ namespace Stripe
 
 	// @interface TSPSPaymentOption
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentOption
+	interface TSPSPaymentOption
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull label;
 		[Export ("label")]
@@ -454,51 +483,52 @@ namespace Stripe
 		NativeHandle Constructor (string label, UIImage image);
 	}
 
-    // @interface TSPSPaymentSheet
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentSheet
+	// @interface TSPSPaymentSheet
+	interface TSPSPaymentSheet
 	{
 		// -(instancetype _Nonnull)initWithPaymentIntentClientSecret:(NSString * _Nonnull)paymentIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration;
 		[Export ("initWithPaymentIntentClientSecret:configuration:")]
 		NativeHandle Constructor (string paymentIntentClientSecret, TSPSConfiguration configuration);
+
+		// -(instancetype _Nonnull)initWithSetupIntentClientSecret:(NSString * _Nonnull)setupIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration;
+		[Export ("initWithSetupIntentClientSecret:configuration:")]
+		NativeHandle Constructor (string setupIntentClientSecret, TSPSConfiguration configuration);
 
 		// +(void)resetCustomer;
 		[Static]
 		[Export ("resetCustomer")]
 		void ResetCustomer ();
 
-		// -(void)presentFrom:(UIViewController * _Nonnull)presentingViewController completion:(void (^ _Nonnull)(enum TSPSPaymentSheetResult, int * _Nullable))completion;
+		// -(void)presentFrom:(UIViewController * _Nonnull)presentingViewController completion:(void (^ _Nonnull)(enum TSPSPaymentSheetResult, NSError * _Nullable))completion;
 		[Export ("presentFrom:completion:")]
-		unsafe void PresentFrom (UIViewController presentingViewController, Action<TSPSPaymentSheetResult, NSError> completion);
+		void PresentFrom (UIViewController presentingViewController, Action<TSPSPaymentSheetResult, NSError> completion);
 	}
 
-    // @interface TSPSPaymentSheetFlowController
-    [BaseType(typeof(NSObject))]
-    interface TSPSPaymentSheetFlowController
+	// @interface TSPSPaymentSheetFlowController
+	interface TSPSPaymentSheetFlowController
 	{
-		// +(void)createWithPaymentIntentClientSecret:(NSString * _Nonnull)paymentIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration completion:(void (^ _Nonnull)(TSPSPaymentSheetFlowController * _Nullable, int * _Nullable))completion;
+		// +(void)createWithPaymentIntentClientSecret:(NSString * _Nonnull)paymentIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration completion:(void (^ _Nonnull)(TSPSPaymentSheetFlowController * _Nullable, NSError * _Nullable))completion;
 		[Static]
 		[Export ("createWithPaymentIntentClientSecret:configuration:completion:")]
-		unsafe void CreateWithPaymentIntentClientSecret (string paymentIntentClientSecret, TSPSConfiguration configuration, Action<TSPSPaymentSheetFlowController, IntPtr> completion);
+		void CreateWithPaymentIntentClientSecret (string paymentIntentClientSecret, TSPSConfiguration configuration, Action<TSPSPaymentSheetFlowController, NSError> completion);
 
-		// +(void)createWithSetupIntentClientSecret:(NSString * _Nonnull)setupIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration completion:(void (^ _Nonnull)(TSPSPaymentSheetFlowController * _Nullable, int * _Nullable))completion;
+		// +(void)createWithSetupIntentClientSecret:(NSString * _Nonnull)setupIntentClientSecret configuration:(TSPSConfiguration * _Nonnull)configuration completion:(void (^ _Nonnull)(TSPSPaymentSheetFlowController * _Nullable, NSError * _Nullable))completion;
 		[Static]
 		[Export ("createWithSetupIntentClientSecret:configuration:completion:")]
-		unsafe void CreateWithSetupIntentClientSecret (string setupIntentClientSecret, TSPSConfiguration configuration, Action<TSPSPaymentSheetFlowController, IntPtr> completion);
+		void CreateWithSetupIntentClientSecret (string setupIntentClientSecret, TSPSConfiguration configuration, Action<TSPSPaymentSheetFlowController, NSError> completion);
 
 		// -(void)presentPaymentOptionsFrom:(UIViewController * _Nonnull)presentingViewController completion:(void (^ _Nonnull)(void))completion;
 		[Export ("presentPaymentOptionsFrom:completion:")]
 		void PresentPaymentOptionsFrom (UIViewController presentingViewController, Action completion);
 
-		// -(void)confirmFrom:(UIViewController * _Nonnull)presentingViewController completion:(void (^ _Nonnull)(enum TSPSPaymentSheetResult, int * _Nullable))completion;
+		// -(void)confirmFrom:(UIViewController * _Nonnull)presentingViewController completion:(void (^ _Nonnull)(enum TSPSPaymentSheetResult, NSError * _Nullable))completion;
 		[Export ("confirmFrom:completion:")]
-		unsafe void ConfirmFrom (UIViewController presentingViewController, Action<TSPSPaymentSheetResult, IntPtr> completion);
+		void ConfirmFrom (UIViewController presentingViewController, Action<TSPSPaymentSheetResult, NSError> completion);
 	}
 
 	// @interface TSPSSetupIntent
 	[DisableDefaultCtor]
-    [BaseType(typeof(NSObject))]
-    interface TSPSSetupIntent
+	interface TSPSSetupIntent
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nonnull stripeId;
 		[Export ("stripeId")]

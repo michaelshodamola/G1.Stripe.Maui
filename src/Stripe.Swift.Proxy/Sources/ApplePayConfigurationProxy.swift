@@ -26,15 +26,14 @@ public class TSPSApplePayConfiguration: NSObject {
         super.init()
     }
     
-    // Apple Pay configuration not available in current Stripe version
-    // internal func toStripeApplePayConfiguration() -> PaymentSheet.Configuration.ApplePay {
-    //     return PaymentSheet.Configuration.ApplePay(
-    //         merchantId: self.merchantId,
-    //         merchantCountryCode: self.merchantCountryCode,
-    //         buttonType: self.buttonType,
-    //         paymentSummaryItems: self.paymentSummaryItems
-    //     )
-    // }
+    internal func toStripeApplePayConfiguration() -> PaymentSheet.ApplePayConfiguration {
+         return PaymentSheet.ApplePayConfiguration(
+             merchantId: self.merchantId,
+             merchantCountryCode: self.merchantCountryCode,
+             buttonType: self.buttonType,
+             paymentSummaryItems: self.paymentSummaryItems
+         )
+    }
 }
 
 // MARK: - Apple Pay Configuration Handlers (Placeholder - not available in current Stripe version)

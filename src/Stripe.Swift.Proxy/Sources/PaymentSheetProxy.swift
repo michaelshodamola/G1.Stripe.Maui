@@ -63,13 +63,11 @@ public class TSPSPaymentSheet: NSObject {
 public class TSPSConfiguration: NSObject {
     @objc public var merchantDisplayName: String?
     @objc public var customer: TSPSCustomerConfiguration?
-    // GooglePay not available in current Stripe version
-    // @objc public var googlePay: TSPSGooglePayConfiguration?
-    // Apple Pay configuration not available in current Stripe version
-    // @objc public var applePay: TSPSApplePayConfiguration?
+    @objc public var applePay: TSPSApplePayConfiguration?
     @objc public var primaryButtonColor: UIColor?
     @objc public var appearance: TSPSAppearance = TSPSAppearance.default
     @objc public var returnURL: String?
+    @objc public var billingDetailsCollectionConfiguration: TSPSBillingDetailsCollectionConfiguration?
     @objc public var allowsDelayedPaymentMethods: Bool = false
     @objc public var userInterfaceStyle: TSPSUserInterfaceStyle = .automatic
     @objc public var paymentMethodOrder: [String]?
@@ -84,12 +82,11 @@ public class TSPSConfiguration: NSObject {
             config.merchantDisplayName = merchantDisplayName
         }
         config.customer = self.customer?.toStripeCustomerConfiguration()
-        // config.googlePay = self.googlePay?.toStripeGooglePayConfiguration()
-        // config.applePay = self.applePay?.toStripeApplePayConfiguration()
+        config.applePay = self.applePay?.toStripeApplePayConfiguration()
         config.primaryButtonColor = self.primaryButtonColor
-        config.appearance = self.appearance.toStripeAppearance()
         config.returnURL = self.returnURL
         config.allowsDelayedPaymentMethods = self.allowsDelayedPaymentMethods
+        self.billingDetailsCollectionConfiguration?.consumeStripeConfiguration(configuration: &config.billingDetailsCollectionConfiguration)
         
         switch self.userInterfaceStyle {
         case .automatic:
@@ -121,4 +118,65 @@ public class TSPSCustomerConfiguration: NSObject {
         return PaymentSheet.CustomerConfiguration(id: self.id, ephemeralKeySecret: self.ephemeralKeySecret)
     }
 }
+
+@objc(TSPSBillingDetailsCollectionConfiguration)
+public class TSPSBillingDetailsCollectionConfiguration: NSObject {
+    @objc public var attachDefaultsToPaymentMethod: Bool
+    @objc public var address: TSPSAddressCollectionMode
+    @objc public var email: TSPSCollectionMode
+    @objc public var name: TSPSCollectionMode
+    @objc public var phone: TSPSCollectionMode
+    
+    @objc public init(
+        name: TSPSCollectionMode,
+        email: TSPSCollectionMode,
+        phone: TSPSCollectionMode,
+        address: TSPSAddressCollectionMode,
+        attachDefaultsToPaymentMethod: Bool
+    ) {
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.address = address
+        self.attachDefaultsToPaymentMethod = attachDefaultsToPaymentMethod
+        super.init()
+    }
+    
+    internal func consumeStripeConfiguration(configuration: inout StripePaymentSheet.PaymentSheet.BillingDetailsCollectionConfiguration) -> Void {
+        configuration.attachDefaultsToPaymentMethod = self.attachDefaultsToPaymentMethod
+        configuration.address = self.address.toStripeAddressCollectionMode()
+        configuration.email = self.email.toStripeAddressCollectionMode()
+        configuration.name = self.name.toStripeAddressCollectionMode()
+        configuration.phone = self.phone.toStripeAddressCollectionMode()
+    }
+    
+    @objc public enum TSPSAddressCollectionMode : Int {
+        case automatic
+        case never
+        case full
+        
+        internal func toStripeAddressCollectionMode() -> StripePaymentSheet.PaymentSheet.BillingDetailsCollectionConfiguration.AddressCollectionMode {
+            switch self {
+            case .automatic: return .automatic
+            case .never: return .never
+            case .full: return .full
+            }
+        }
+    }
+    
+    @objc public enum TSPSCollectionMode : Int {
+        case automatic
+        case never
+        case always
+        
+        internal func toStripeAddressCollectionMode() -> StripePaymentSheet.PaymentSheet.BillingDetailsCollectionConfiguration.CollectionMode {
+            switch self {
+            case .automatic: return .automatic
+            case .never: return .never
+            case .always: return .always
+            }
+        }
+    }
+}
+
 

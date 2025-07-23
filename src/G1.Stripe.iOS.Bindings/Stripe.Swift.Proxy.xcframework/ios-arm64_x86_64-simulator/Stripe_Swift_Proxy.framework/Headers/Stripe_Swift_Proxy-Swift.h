@@ -419,6 +419,32 @@ SWIFT_CLASS_NAMED("TSPSApplePayConfigurationHandlers")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+enum TSPSAddressCollectionMode : NSInteger;
+enum TSPSCollectionMode : NSInteger;
+SWIFT_CLASS_NAMED("TSPSBillingDetailsCollectionConfiguration")
+@interface TSPSBillingDetailsCollectionConfiguration : NSObject
+@property (nonatomic) BOOL attachDefaultsToPaymentMethod;
+@property (nonatomic) enum TSPSAddressCollectionMode address;
+@property (nonatomic) enum TSPSCollectionMode email;
+@property (nonatomic) enum TSPSCollectionMode name;
+@property (nonatomic) enum TSPSCollectionMode phone;
+- (nonnull instancetype)initWithName:(enum TSPSCollectionMode)name email:(enum TSPSCollectionMode)email phone:(enum TSPSCollectionMode)phone address:(enum TSPSAddressCollectionMode)address attachDefaultsToPaymentMethod:(BOOL)attachDefaultsToPaymentMethod OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, TSPSAddressCollectionMode, open) {
+  TSPSAddressCollectionModeAutomatic = 0,
+  TSPSAddressCollectionModeNever = 1,
+  TSPSAddressCollectionModeFull = 2,
+};
+
+typedef SWIFT_ENUM(NSInteger, TSPSCollectionMode, open) {
+  TSPSCollectionModeAutomatic = 0,
+  TSPSCollectionModeNever = 1,
+  TSPSCollectionModeAlways = 2,
+};
+
 typedef SWIFT_ENUM(NSInteger, TSPSCardBrand, open) {
   TSPSCardBrandVisa = 0,
   TSPSCardBrandAmex = 1,
@@ -436,9 +462,11 @@ SWIFT_CLASS_NAMED("TSPSConfiguration")
 @interface TSPSConfiguration : NSObject
 @property (nonatomic, copy) NSString * _Nullable merchantDisplayName;
 @property (nonatomic, strong) TSPSCustomerConfiguration * _Nullable customer;
+@property (nonatomic, strong) TSPSApplePayConfiguration * _Nullable applePay;
 @property (nonatomic, strong) UIColor * _Nullable primaryButtonColor;
 @property (nonatomic, strong) TSPSAppearance * _Nonnull appearance;
 @property (nonatomic, copy) NSString * _Nullable returnURL;
+@property (nonatomic, strong) TSPSBillingDetailsCollectionConfiguration * _Nullable billingDetailsCollectionConfiguration;
 @property (nonatomic) BOOL allowsDelayedPaymentMethods;
 @property (nonatomic) enum TSPSUserInterfaceStyle userInterfaceStyle;
 @property (nonatomic, copy) NSArray<NSString *> * _Nullable paymentMethodOrder;
@@ -1006,6 +1034,32 @@ SWIFT_CLASS_NAMED("TSPSApplePayConfigurationHandlers")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+enum TSPSAddressCollectionMode : NSInteger;
+enum TSPSCollectionMode : NSInteger;
+SWIFT_CLASS_NAMED("TSPSBillingDetailsCollectionConfiguration")
+@interface TSPSBillingDetailsCollectionConfiguration : NSObject
+@property (nonatomic) BOOL attachDefaultsToPaymentMethod;
+@property (nonatomic) enum TSPSAddressCollectionMode address;
+@property (nonatomic) enum TSPSCollectionMode email;
+@property (nonatomic) enum TSPSCollectionMode name;
+@property (nonatomic) enum TSPSCollectionMode phone;
+- (nonnull instancetype)initWithName:(enum TSPSCollectionMode)name email:(enum TSPSCollectionMode)email phone:(enum TSPSCollectionMode)phone address:(enum TSPSAddressCollectionMode)address attachDefaultsToPaymentMethod:(BOOL)attachDefaultsToPaymentMethod OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, TSPSAddressCollectionMode, open) {
+  TSPSAddressCollectionModeAutomatic = 0,
+  TSPSAddressCollectionModeNever = 1,
+  TSPSAddressCollectionModeFull = 2,
+};
+
+typedef SWIFT_ENUM(NSInteger, TSPSCollectionMode, open) {
+  TSPSCollectionModeAutomatic = 0,
+  TSPSCollectionModeNever = 1,
+  TSPSCollectionModeAlways = 2,
+};
+
 typedef SWIFT_ENUM(NSInteger, TSPSCardBrand, open) {
   TSPSCardBrandVisa = 0,
   TSPSCardBrandAmex = 1,
@@ -1023,9 +1077,11 @@ SWIFT_CLASS_NAMED("TSPSConfiguration")
 @interface TSPSConfiguration : NSObject
 @property (nonatomic, copy) NSString * _Nullable merchantDisplayName;
 @property (nonatomic, strong) TSPSCustomerConfiguration * _Nullable customer;
+@property (nonatomic, strong) TSPSApplePayConfiguration * _Nullable applePay;
 @property (nonatomic, strong) UIColor * _Nullable primaryButtonColor;
 @property (nonatomic, strong) TSPSAppearance * _Nonnull appearance;
 @property (nonatomic, copy) NSString * _Nullable returnURL;
+@property (nonatomic, strong) TSPSBillingDetailsCollectionConfiguration * _Nullable billingDetailsCollectionConfiguration;
 @property (nonatomic) BOOL allowsDelayedPaymentMethods;
 @property (nonatomic) enum TSPSUserInterfaceStyle userInterfaceStyle;
 @property (nonatomic, copy) NSArray<NSString *> * _Nullable paymentMethodOrder;

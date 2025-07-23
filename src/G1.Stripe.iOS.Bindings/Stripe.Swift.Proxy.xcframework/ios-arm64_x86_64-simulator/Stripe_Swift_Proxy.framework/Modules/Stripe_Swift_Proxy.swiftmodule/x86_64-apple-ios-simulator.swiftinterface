@@ -43,9 +43,11 @@ import _SwiftConcurrencyShims
 @_inheritsConvenienceInitializers @objc(TSPSConfiguration) public class TSPSConfiguration : ObjectiveC.NSObject {
   @objc public var merchantDisplayName: Swift.String?
   @objc public var customer: Stripe_Swift_Proxy.TSPSCustomerConfiguration?
+  @objc public var applePay: Stripe_Swift_Proxy.TSPSApplePayConfiguration?
   @objc public var primaryButtonColor: UIKit.UIColor?
   @objc public var appearance: Stripe_Swift_Proxy.TSPSAppearance
   @objc public var returnURL: Swift.String?
+  @objc public var billingDetailsCollectionConfiguration: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration?
   @objc public var allowsDelayedPaymentMethods: Swift.Bool
   @objc public var userInterfaceStyle: Stripe_Swift_Proxy.TSPSUserInterfaceStyle
   @objc public var paymentMethodOrder: [Swift.String]?
@@ -56,6 +58,35 @@ import _SwiftConcurrencyShims
   @objc final public let id: Swift.String
   @objc final public let ephemeralKeySecret: Swift.String
   @objc public init(id: Swift.String, ephemeralKeySecret: Swift.String)
+  @objc deinit
+}
+@objc(TSPSBillingDetailsCollectionConfiguration) public class TSPSBillingDetailsCollectionConfiguration : ObjectiveC.NSObject {
+  @objc public var attachDefaultsToPaymentMethod: Swift.Bool
+  @objc public var address: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSAddressCollectionMode
+  @objc public var email: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode
+  @objc public var name: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode
+  @objc public var phone: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode
+  @objc public init(name: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode, email: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode, phone: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode, address: Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSAddressCollectionMode, attachDefaultsToPaymentMethod: Swift.Bool)
+  @objc public enum TSPSAddressCollectionMode : Swift.Int {
+    case automatic
+    case never
+    case full
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public enum TSPSCollectionMode : Swift.Int {
+    case automatic
+    case never
+    case always
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
   @objc deinit
 }
 @objc(TSPSApplePayConfiguration) public class TSPSApplePayConfiguration : ObjectiveC.NSObject {
@@ -257,6 +288,12 @@ extension Stripe_Swift_Proxy.TSPSPaymentSheetResult : Swift.RawRepresentable {}
 extension Stripe_Swift_Proxy.TSPSUserInterfaceStyle : Swift.Equatable {}
 extension Stripe_Swift_Proxy.TSPSUserInterfaceStyle : Swift.Hashable {}
 extension Stripe_Swift_Proxy.TSPSUserInterfaceStyle : Swift.RawRepresentable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSAddressCollectionMode : Swift.Equatable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSAddressCollectionMode : Swift.Hashable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSAddressCollectionMode : Swift.RawRepresentable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode : Swift.Equatable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode : Swift.Hashable {}
+extension Stripe_Swift_Proxy.TSPSBillingDetailsCollectionConfiguration.TSPSCollectionMode : Swift.RawRepresentable {}
 extension Stripe_Swift_Proxy.TSPSPaymentMethodType : Swift.Equatable {}
 extension Stripe_Swift_Proxy.TSPSPaymentMethodType : Swift.Hashable {}
 extension Stripe_Swift_Proxy.TSPSPaymentMethodType : Swift.RawRepresentable {}
