@@ -81,9 +81,9 @@ var options = new PaymentSheetOptions
     },
 
 #if IOS
-                ApplePayConfiguration = new TSPSApplePayConfiguration("your.merchant.id", "us", PassKit.PKPaymentButtonType.Checkout, null, null)
+    ApplePayConfiguration = new TSPSApplePayConfiguration("your.merchant.id", "us", PassKit.PKPaymentButtonType.Checkout, null, null)
 #elif ANDROID
-                GooglePay = new Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration(Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration.Environment.Test!, "us")
+    GooglePay = new Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration(Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration.Environment.Test!, "us")
 #endif
 };
 
