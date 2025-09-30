@@ -6,7 +6,7 @@ namespace G1.Stripe.Maui.Options;
 
 partial class PaymentSheetOptions
 {
-    public PaymentSheet.GooglePayConfiguration? GooglePay { get; set; }
+    public PaymentSheet.GooglePayConfiguration? GooglePayConfiguration { get; set; }
 
     internal PaymentSheet.Configuration BuildPlatform()
     {
@@ -18,9 +18,9 @@ partial class PaymentSheetOptions
             configurationBuilder.BillingDetailsCollectionConfiguration(billingDetails.ToPlatform());
         }
 
-        if (GooglePay is { } googlePay)
+        if (GooglePayConfiguration is { } googlePay)
         {
-            configurationBuilder.GooglePay(GooglePay);
+            configurationBuilder.GooglePay(GooglePayConfiguration);
         }
 
         if (Customer is { } customer)
