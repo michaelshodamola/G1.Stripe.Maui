@@ -58,6 +58,7 @@ public class AndroidPaymentSheet : IPaymentSheet
                 case AndroidPaymentSheetResult.Completed completed:
                     sheet._tcs?.SetResult(new SharedPSResult.Completed());
                     break;
+
                 default:
                     sheet._tcs?.SetException(new ImpossiblePaymentSheetException("Result didnt match one of excpected cases"));
                     break;
