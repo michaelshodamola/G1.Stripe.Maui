@@ -9,6 +9,9 @@
 
 		<_IosSdkVersion>24.25.0</_IosSdkVersion>
 		<_AndroidSdkVersion>21.29.1</_AndroidSdkVersion>
+
+		<GenerateRequiresPreviewFeaturesAttribute>false</GenerateRequiresPreviewFeaturesAttribute>
+		<EnablePreviewFeatures>false</EnablePreviewFeatures>
 	</PropertyGroup>
 	<PropertyGroup Label="Macros">
 		<PropertySheetPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropertySheetPath>

@@ -1,7 +1,7 @@
 ﻿#if ANDROID
-using AndroidX.Activity;
-using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Maui.LifecycleEvents;
+
 #endif
 
 namespace G1.Stripe.Maui;
