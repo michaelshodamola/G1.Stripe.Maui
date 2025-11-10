@@ -1,33 +1,55 @@
-name: Build packages
+name: Build Packages
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - master
       - develop
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Optional: Pull Request number to build (for forks or external branches)"
+        required: false
+        type: string
 
 jobs:
-  publish-packages:
-
+  build:
+    name: Build Packages
     runs-on: macos-latest
+    permissions:
+      contents: read
+      pull-requests: read
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: install dotnet
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-        dotnet-quality: 'ga'
-        
-    - name: Workload restore
-      shell: pwsh
-      run: dotnet workload restore 
+      - name: Checkout PR or branch
+        id: checkout
+        uses: actions/checkout@v4
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        # Normal behavior: for pull_request or main branch runs
 
-    - name: build packages
-      shell: pwsh
-      env:
-        NugetVersion: '0.0.1'
-      run: ./build-packages.ps1
+      - name: Checkout external PR (manual trigger)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ fromJson(steps.pr.outputs.data).head.repo.full_name }}
+          ref: ${{ fromJson(steps.pr.outputs.data).head.ref }}
+          fetch-depth: 0
+
+      - name: Get PR info
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '' }}
+        id: pr
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.inputs.pr_number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Workload restore
+        shell: pwsh
+        run: dotnet workload restore
+
+      - name: Build packages
+        shell: pwsh
+        env:
+          NugetVersion: '0.0.1'
+        run: ./build-packages.ps1
