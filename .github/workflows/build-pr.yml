@@ -46,6 +46,4 @@ jobs:
 
       - name: Build packages
         shell: pwsh
-        env:
-          NugetVersion: '0.0.1'
         run: ./build-packages.ps1
