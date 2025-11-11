@@ -23,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<NativeReference Include="stripe/Stripe.Swift.Proxy.xcframework">
+		<NativeReference Include="Stripe.Swift.Proxy.xcframework">
 			<Kind>Framework</Kind>
 			<Frameworks></Frameworks>
 			<LinkerFlags></LinkerFlags>
