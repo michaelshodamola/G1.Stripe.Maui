@@ -6,8 +6,6 @@ namespace G1.Stripe.Maui.Options;
 
 partial class PaymentSheetOptions
 {
-    public PaymentSheet.GooglePayConfiguration? GooglePayConfiguration { get; set; }
-
     internal PaymentSheet.Configuration BuildPlatform()
     {
         var configurationBuilder = new PaymentSheet.Configuration.Builder(MerchantDisplayName)
@@ -18,9 +16,18 @@ partial class PaymentSheetOptions
             configurationBuilder.BillingDetailsCollectionConfiguration(billingDetails.ToPlatform());
         }
 
-        if (GooglePayConfiguration is { } googlePay)
+        if (GooglePay is { } googlePayOptions)
         {
-            configurationBuilder.GooglePay(GooglePayConfiguration);
+            var environment = googlePayOptions.UseTestEnvironment
+                ? PaymentSheet.GooglePayConfiguration.Environment.Test
+                : PaymentSheet.GooglePayConfiguration.Environment.Production;
+
+            var googlePayConfig = new PaymentSheet.GooglePayConfiguration(
+                environment!,
+                googlePayOptions.CountryCode
+            );
+
+            configurationBuilder.GooglePay(googlePayConfig);
         }
 
         if (Customer is { } customer)

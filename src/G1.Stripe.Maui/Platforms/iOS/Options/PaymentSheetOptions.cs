@@ -1,5 +1,6 @@
 using G1.Stripe.Maui.Platforms.iOS.Converters;
 using Microsoft.Extensions.Configuration;
+using PassKit;
 using Stripe;
 using UIKit;
 
@@ -7,8 +8,6 @@ namespace G1.Stripe.Maui.Options;
 
 partial class PaymentSheetOptions
 {
-    public TSPSApplePayConfiguration? ApplePayConfiguration { get; set; }
-
     internal TSPSConfiguration BuildPlatform()
     {
         var configuration = new TSPSConfiguration
@@ -17,9 +16,17 @@ partial class PaymentSheetOptions
             AllowsDelayedPaymentMethods = AllowsDelayedPaymentMethods
         };
 
-        if (ApplePayConfiguration is { } applePayConfiguration)
+        if (ApplePay is { } applePayOptions)
         {
-            configuration.ApplePay = ApplePayConfiguration;
+            var appleConfig = new TSPSApplePayConfiguration(
+                applePayOptions.MerchantId,
+                applePayOptions.CountryCode,
+                PKPaymentButtonType.Checkout,
+                null,
+                null
+            );
+
+            configuration.ApplePay = appleConfig;
         }
 
         if (BillingDetails is { } billingDetails)

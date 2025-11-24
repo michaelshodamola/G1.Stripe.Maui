@@ -1,10 +1,20 @@
-﻿namespace G1.Stripe.Maui.Options;
+namespace G1.Stripe.Maui.Options;
 
 /// <summary>
 /// Configuration options for Stripe PaymentSheet, a prebuilt checkout UI for Android and iOS.
 /// </summary>
 public partial class PaymentSheetOptions
 {
+    /// <summary>
+    /// Google Pay configuration. If null, Google Pay is disabled.
+    /// </summary>
+    public GooglePayOptions? GooglePay { get; set; }
+
+    /// <summary>
+    /// Apple Pay configuration. If null, Apple Pay is disabled.
+    /// </summary>
+    public ApplePayOptions? ApplePay { get; set; }
+
     /// <summary>
     /// The client secret of the PaymentIntent or SetupIntent created on your server.
     /// Required to initialize and present the PaymentSheet.
@@ -71,4 +81,33 @@ public partial class PaymentSheetOptions
     /// Default: not saved unless required by payment method type.
     /// </summary>
     public bool? SetupFutureUsage { get; set; }
+}
+
+public class GooglePayOptions
+{
+    /// <summary>
+    /// ISO country code used for Google Pay.
+    /// Default: "us".
+    /// </summary>
+    public string CountryCode { get; set; } = "us";
+
+    /// <summary>
+    /// Whether to use the Google Pay test environment.
+    /// Default: true.
+    /// </summary>
+    public bool UseTestEnvironment { get; set; } = true;
+}
+
+public class ApplePayOptions
+{
+    /// <summary>
+    /// Apple Pay merchant identifier (e.g. "your.merchant.id").
+    /// </summary>
+    public required string MerchantId { get; set; }
+
+    /// <summary>
+    /// ISO country code used for Apple Pay.
+    /// Default: "us".
+    /// </summary>
+    public string CountryCode { get; set; } = "us";
 }
