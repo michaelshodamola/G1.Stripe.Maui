@@ -79,15 +79,18 @@ var options = new PaymentSheetOptions
         Address = Options.AddressCollectionMode.Full,
         AttachDefaultsToPaymentMethod = false
     },
+    ApplePay = new G1.Stripe.Maui.Options.ApplePayOptions
+    {
+        MerchantId = "your.merchant.id",
+        CountryCode = "us"
+    },
+    GooglePay = new G1.Stripe.Maui.Options.GooglePayOptions
+    {
+        UseTestEnvironment = true,
+        CountryCode = "us"
+    }
 
-#if IOS
-    ApplePayConfiguration = new TSPSApplePayConfiguration("your.merchant.id", "us", PassKit.PKPaymentButtonType.Checkout, null, null)
-#elif ANDROID
-    GooglePayConfiguration = new Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration(Com.Stripe.Android.Paymentsheet.PaymentSheet.GooglePayConfiguration.Environment.Test!, "us")
-#endif
-};
-
-var result = await paymentSheet.Open(options, cancellationToken);
+    var result = await paymentSheet.Open(options, cancellationToken);
 ```
 
 ### 3. Handle the Result
