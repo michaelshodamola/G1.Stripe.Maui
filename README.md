@@ -89,8 +89,9 @@ var options = new PaymentSheetOptions
         UseTestEnvironment = true,
         CountryCode = "us"
     }
+}
 
-    var result = await paymentSheet.Open(options, cancellationToken);
+var result = await paymentSheet.Open(options, cancellationToken);
 ```
 
 ### 3. Handle the Result
